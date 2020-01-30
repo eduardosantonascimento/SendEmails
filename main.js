@@ -45,7 +45,7 @@ function sendEmails() {
     }else if(totalCarga = cargaPadrao){
     var messageBody = templateText.replace("(nome)",nomeUsuario).replace("(matricula)",numeroMatricula).replace("(registro)",numeroRegistro).replace("(Curso1)",numeroCurso1).replace("(cargaHoraria1)",cargaHoraria1).replace("(Curso2)",numeroCurso2).replace("(cargaHoraria2)",cargaHoraria2).replace("(Curso3)",numeroCurso3).replace("(cargaHoraria3)",cargaHoraria3)
     .replace("(instituicao1)",instituicao1).replace("(instituicao2)",instituicao2).replace("(instituicao3)",instituicao3).replace("(Curso4)",numeroCurso4).replace("(cargaHoraria1)",cargaHoraria4).replace("(instituicao4)",instituicao4).replace("(totalCarga)",totalCarga).replace("(observacao)","");
-      }
+      
       
     var subjectLine = "Prezado(a) " + nomeUsuario + ", matrícula: " +numeroMatricula +" sua análise de cursos para progressão foi realizada!";
       
@@ -53,8 +53,12 @@ function sendEmails() {
     GmailApp.sendEmail(currentEmail, subjectLine, messageBody);
     
             
-    ss.getRange(i, 19).setValue(email_Enviado)
+    ss.getRange(i, 19).setValue(email_Enviado);  // atualizacao de campo de condicional
+        
+    } else { 
     
+      ss.getRange(i, 19).setValue("Carga Horaria INSUFICIENTE");  // indicacao de nao cumprimento de exigencia
+    }
     
     }
     else {}
@@ -63,3 +67,4 @@ function sendEmails() {
   }
   
   
+
